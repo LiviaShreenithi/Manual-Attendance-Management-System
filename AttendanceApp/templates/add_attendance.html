@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Attendance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <script>
+        function check(){
+            alert("Make sure all details match the official records and they are correct");
+        }
+        
+                history.pushState(null, null, document.URL);
+                window.addEventListener('popstate', function () {
+                    history.pushState(null, null, document.URL);
+                window.location.replace("{{ url_for('start_page') }}");  // Redirect to start_page.html after logout
+    });
+        
+    </script>
+</head>
+
+<body>
+
+<nav>
+
+    <a href="{{ url_for('projects') }}">Projects</a>
+
+    <a href="{{ url_for('profile') }}">Profile</a>
+    <a href="{{ url_for('logout') }}">Logout</a>
+</nav>
+
+
+    <h1>Add Attendance</h1>
+    <form method="post" action="{{ url_for('add_attendance',project_id=project_id) }}">
+        <label for="volunteer_id">Volunteer ID:</label>
+        <input type="text" name="volunteer_id" required>
+
+        <label for="volunteer_name">Volunteer Name:</label>
+        <input type="text" name="volunteer_name" required>
+
+        <label for="attendance_status">Attendance Status:</label>
+        <select name="attendance_status" required>
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+        </select>
+        
+        <input type="submit" value="Submit" onclick="check()">
+    </form>
+    
+
+        {% if error_message %}
+        <p class="error">{{ error_message }}</p>
+        {% endif %}
+    <a href="{{ url_for('projects') }}"><button>Back to Dashboard</button></a>
+</body>
+
+</html>

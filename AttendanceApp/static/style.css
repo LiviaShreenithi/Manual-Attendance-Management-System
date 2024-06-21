@@ -1,0 +1,104 @@
+body {
+    margin: 10px;
+    font-family: Arial, sans-serif;
+    margin: 80px;
+}
+
+nav {
+    background-color: #7189cb;
+    position: fixed;
+    float: left;
+    margin-left: 50px;
+    top: -5px;
+    display: block;
+    height: 50px;
+
+}
+
+/* styling navlist anchor element */
+nav a {
+
+    float: left;
+    height: 50px;
+    display: block;
+    color: #d0e4f6;
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 15px;
+    transition: all 1s;
+}
+
+/* hover effect of navlist anchor element */
+nav a:hover {
+    background-color: #c3d5fc;
+    color: black;
+    height: 35px;
+}
+
+h1 {
+    color: #a83a3a;
+}
+
+form {
+    max-width: 400px;
+    margin: 20px 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+input[type="submit"],
+button {
+    background-color: #4caf50;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+button {
+    margin-left: 10px;
+}
+
+button {
+    background-color: #4caf50;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+p {
+    color: cadetblue;
+}

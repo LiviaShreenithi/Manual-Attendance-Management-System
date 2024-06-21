@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<script type="text/javascript">
+    history.pushState(null, null, document.URL);
+    window.addEventListener('popstate', function () {
+        history.pushState(null, null, document.URL);
+        window.location.replace("{{ url_for('start_page') }}");  // Redirect to start_page.html after logout
+    });
+</script>
+</head>
+
+<body>
+
+    <nav>
+    
+        <a href="{{ url_for('projects') }}">Projects</a>
+    
+        <a href="{{ url_for('profile') }}">Profile</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+<h1>Attendance System</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Volunteer ID</th>
+                <th>Volunteer Name</th>
+                <th>Attendance Status</th>
+                <th>Days Missed</th>
+                <th>Attendance Time</th>
+                <th>Date Taken</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in attendance_data %}
+            <tr>
+                <td>{{ entry[0] }}</td> <!--  volunteer_id -->
+                <td>{{ entry[1] }}</td> <!-- volunteer_name -->
+                <td>{{ entry[2] }}</td> <!--  attendance_status -->
+                <td>{{ entry[3] }}</td> <!--  to days_missed -->
+                <td>{{ entry[4] }}</td> <!--  attendance_time -->
+                <td>{{ entry[5] }}</td> <!--  date_taken -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+       
+    
+<a href="{{ url_for('add_attendance', project_id=project_id) }}"><button>Add Attendance</button></a>
+            
+
+</body>
+
+</html>

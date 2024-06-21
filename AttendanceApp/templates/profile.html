@@ -1,0 +1,50 @@
+<!-- profile.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<script type="text/javascript">
+    history.pushState(null, null, document.URL);
+    window.addEventListener('popstate', function () {
+        history.pushState(null, null, document.URL);
+        window.location.replace("{{ url_for('start_page') }}");  // Redirect to start_page.html after logout
+    });
+</script>
+</head>
+
+<body>
+
+    <nav>
+    
+        <a href="{{ url_for('projects') }}">Projects</a>
+    
+        <a href="{{ url_for('profile') }}">Profile</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+
+
+    <h1>Profile</h1>
+
+    <!-- Content specific to the profile page -->
+
+    <div class="profile-container">
+        <!-- Add an image of the project head -->
+        <img src="{{ url_for('static', filename='project_head_image.jpg') }}" alt="Project Head Image">
+
+        <!-- Display the name of the project head -->
+        <h2>Project Head Name</h2>
+
+        <!-- Add a basic description of the project head -->
+        <p>
+            
+        </p>
+    </div>
+
+</body>
+
+</html>

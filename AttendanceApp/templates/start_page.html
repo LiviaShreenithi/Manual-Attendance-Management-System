@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="Cache-Control" content="no-store" />
+    <title>Start Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+   <script type="text/javascript">
+    history.pushState(null, null, document.URL);
+    window.addEventListener('popstate', function () {
+        history.pushState(null, null, document.URL);
+    });
+</script>
+</script>
+</head>
+
+<body>
+    <h1>Welcome to the Attendance System</h1>
+    <a href="{{ url_for('teacher_login') }}"><button>Login</button></a>
+    <a href="{{ url_for('teacher_register') }}"><button>Register</button></a>
+</body>
+
+</html>

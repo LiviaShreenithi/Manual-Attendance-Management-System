@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance</title>
+    <script>
+        (function () {
+                if (!localStorage.attendance) {
+                    console.log('Creating attendance records...');
+                    function getRandom() {
+                        return (Math.random() >= 0.5);
+                    }
+
+                    var nameColumns = $('tbody .name-col'),
+                        attendance = {};
+
+                    nameColumns.each(function () {
+                        var name = this.innerText;
+                        attendance[name] = [];
+
+                        for (var i = 0; i <= 11; i++) {
+                            attendance[name].push(getRandom());
+                        }
+                    });
+
+                    localStorage.attendance = JSON.stringify(attendance);
+                }
+            }());
+
+            /* STUDENT APPLICATION */
+            $(function () {
+                var attendance = JSON.parse(localStorage.attendance),
+                    $allMissed = $('tbody .missed-col'),
+                    $allCheckboxes = $('tbody input');
+
+                // Count a student's missed days
+                function countMissing() {
+                    $allMissed.each(function () {
+                        var studentRow = $(this).parent('tr'),
+                            dayChecks = $(studentRow).children('td').children('input'),
+                            numMissed = 0;
+
+                        dayChecks.each(function () {
+                            if (!$(this).prop('checked')) {
+                                numMissed++;
+                            }
+                        });
+
+                        $(this).text(numMissed);
+                    });
+                }
+
+                // Check boxes, based on attendance records
+                $.each(attendance, function (name, days) {
+                    var studentRow = $('tbody .name-col:contains("' + name + '")').parent('tr'),
+                        dayChecks = $(studentRow).children('.attend-col').children('input');
+
+                    dayChecks.each(function (i) {
+                        $(this).prop('checked', days[i]);
+                    });
+                });
+
+                // When a checkbox is clicked, update localStorage
+                $allCheckboxes.on('click', function () {
+                    var studentRows = $('tbody .student'),
+                        newAttendance = {};
+
+                    studentRows.each(function () {
+                        var name = $(this).children('.name-col').text(),
+                            $allCheckboxes = $(this).children('td').children('input');
+
+                        newAttendance[name] = [];
+
+                        $allCheckboxes.each(function () {
+                            newAttendance[name].push($(this).prop('checked'));
+                        });
+                    });
+
+                    countMissing();
+                    localStorage.attendance = JSON.stringify(newAttendance);
+                });
+
+                countMissing();
+            }());
+            
+                    history.pushState(null, null, document.URL);
+                    window.addEventListener('popstate', function () {
+                        history.pushState(null, null, document.URL);
+                    window.location.replace("{{ url_for('start_page') }}");  // Redirect to start_page.html after logout
+    });
+            
+
+    </script> 
+</head>
+
+<body>
+
+    <nav>
+    
+        <a href="{{ url_for('projects') }}">Projects</a>
+    
+        <a href="{{ url_for('profile') }}">Profile</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+
+    <h1>Add Attendance</h1>
+    <form method="post" action="{{ url_for('add_attendance') }}">
+        <label for="student_id">Student ID:</label>
+        <input type="text" name="student_id" required>
+
+        <label for="student_name">Student Name:</label>
+        <input type="text" name="student_name" required>
+
+        <label for="attendance_status">Attendance Status:</label>
+        <select name="attendance_status" required>
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+        </select>
+
+        <!-- Add new fields -->
+        <table>
+            <thead>
+                <tr>
+                    <th class="name-col">Student Name</th>
+                    {% for date in dates %}
+                    <th>{{ date.strftime('%Y-%m-%d') }}</th>
+                    {% endfor %}
+                    <th class="missed-col">Days Missed</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr class="student">
+                    <td class="name-col">{{ student.name }}</td>
+                    {% for date in dates %}
+                    <td class="attend-col">
+                        <input type="checkbox" name="attendance_{{ student.name }}_{{ date.strftime('%Y-%m-%d') }}">
+                    </td>
+                    {% endfor %}
+                    <td class="missed-col">0</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <input type="submit" value="Submit">
+    </form>
+    <a href="{{ url_for('display') }}"><button>Back to Dashboard</button></a>
+
+</body>
+
+</html>

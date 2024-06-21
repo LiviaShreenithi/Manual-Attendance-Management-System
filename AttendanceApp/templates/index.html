@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <h1>Attendance System</h1>
+    <ul>
+        {% for entry in attendance_data %}
+        <li>{{ entry.student_name }} - {{ entry.attendance_status }} ({{ entry.date.strftime('%Y-%m-%d') }})</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('add_attendance') }}"><button>Add Attendance</button></a>
+</body>
+
+</html>

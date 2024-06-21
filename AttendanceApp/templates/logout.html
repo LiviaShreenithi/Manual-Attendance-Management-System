@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout</title>
+    <script>
+        setTimeout(function(){
+            window.location.href="{{ url_for('start_page') }}";
+        }, 5000);
+
+        history.pushState(null, null, location.href);
+            window.onpopstate = function () {
+                
+                alert("Please re-login");
+            };
+    </script>>
+</head>
+
+<body>
+
+
+    <h1>Logout</h1>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="flash-messages">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <p>You will be redirected to the start page.</p>
+
+</body>
+
+</html>
